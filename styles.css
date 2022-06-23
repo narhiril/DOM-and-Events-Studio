@@ -1,17 +1,18 @@
 #shuttleBackground {
     background-color: green;
     display: inline-block;
-    height: 60%;
-    width: 40%;
+    height: 65%;
+    width: 35%;
     position: relative;
+    top: 10%
 }
 
 #rocket {
     height: 75px;
     width: 75px;
     position: absolute;
-    left: 30%;
-    top: 30%;
+    left: 40%;
+    top: 70%;
 }
 
 #flightStatus {

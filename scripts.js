@@ -22,10 +22,11 @@ function main(){
     const down = document.getElementById('down');
 
     const rocketElement = document.querySelector('#rocket');
-    const initialPosition = new Vec2(parseInt(getComputedStyle(rocketElement).left), parseInt(getComputedStyle(rocketElement).top));
+    const initialPosition = new Vec2(parseInt(getComputedStyle(rocketElement).left), 
+                                     parseInt(getComputedStyle(rocketElement).top));
     let position = Object.assign({}, initialPosition);
     let height = parseInt(shuttleHeight.innerHTML);
-    const delta = 10;
+    const delta = 10; //movement amount in pixels
 
     function launch(){
         flightStatus.innerHTML = 'Shuttle in flight.';
@@ -45,6 +46,20 @@ function main(){
         shuttle.style.left = String(position.x) + 'px';
         shuttle.style.top = String(position.y) + 'px';
         console.log('x: ' + position.x + ' y: ' + position.y);
+    }
+
+    function checkBounds(positionVector, dir){
+        //console.log(`DEBUG: position x: ${positionVector.x}, position y: ${positionVector.y}`);
+        switch(true){
+            case (dir === 'right' && positionVector.x > 2*initialPosition.x + delta): //right boundary, this is dirty but it works
+            case (dir === 'left' && positionVector.x < delta): //left boundary
+            case (dir === 'up' && positionVector.y < delta): //top boundary
+                //console.log('DEBUG: can move: false');
+                return false;
+            default:
+                //console.log('DEBUG: can move: true');
+                return true;
+        }
     }
 
     takeoffButton.addEventListener('click', () => {
@@ -77,12 +92,16 @@ function main(){
     });
     
     left.addEventListener('click', () => {
-        position.x -= delta;
+        if (checkBounds(position, 'left')){
+            position.x -= delta;
+        }
         update();
     });
     
     right.addEventListener('click', () => {
-        position.x += delta;
+        if (checkBounds(position, 'right')){
+            position.x += delta;
+        }
         update();
     });
     
@@ -90,15 +109,19 @@ function main(){
         if (height < 10000){
             launch();
         } else {
-            position.y -= delta;
             height += 10000;
+            if (checkBounds(position, 'up')){
+                position.y -= delta;
+            }
         }
         update();
     });
     
     down.addEventListener('click', () => {
         if (height > 10000){
-            position.y += delta;
+            if (checkBounds(position, 'down')){
+                position.y += delta;
+            }
             height -= 10000;
         } else {
             land();
