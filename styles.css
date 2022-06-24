@@ -1,3 +1,7 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #shuttleBackground {
     background-color: green;
     display: inline-block;
@@ -28,6 +32,14 @@
     text-align: center; 
     height: 400px; 
     width: 100%;
+}
+
+#left-ui {
+    transform: translateY(-50%);
+}
+
+#right-ui {
+    transform: translateY(-50%);
 }
 
 #spaceShuttleHeight {

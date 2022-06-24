@@ -74,7 +74,7 @@ function main(){
             }
             radioText.innerHTML = text;
         } else if (force || roll > 95){
-            roll = Math.ceil(Math.random() * 6);
+            roll = Math.ceil(Math.random() * 7);
             switch(roll){
                 case 1:
                     text = 'Hey, is that a corned beef sandwich?';
@@ -94,6 +94,9 @@ function main(){
                 case 6:
                     text = 'Whose idea was it for the microwave and the CO2 alarm to make the same sound?';
                     break;
+                case 7:
+                    text = 'Ludicrous speed, go!';
+                    break;
                 default:
                     text = 'Wowee!';
             }
@@ -107,6 +110,7 @@ function main(){
             case (dir === 'right' && positionVector.x > 2*initialPosition.x + delta): //right boundary, this is dirty but it works
             case (dir === 'left' && positionVector.x < delta): //left boundary
             case (dir === 'up' && positionVector.y < delta): //top boundary
+            case (dir === 'down' && positionVector.y > initialPosition.y): //bottom boundary
                 //console.log('DEBUG: can move: false');
                 return false;
             default:
